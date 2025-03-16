@@ -1,74 +1,44 @@
 import pymupdf
-import anthropic
 import base64
 import pathlib
-from dotenv import load_dotenv
 import sys
-
-def image(file, filetype):
-    # loads "ANTHROPIC_API_KEY=key" from a token.env file
-    if not load_dotenv('token.env'):
-        print("Error: Could not load token.env file")
-        sys.exit(1)
-
-    with open(file, "rb") as image_file:
-        image_data = base64.b64encode(image_file.read()).decode('utf-8')
-    
-    if filetype == '.jpg' or filetype == '.jpeg':
-        media_type = 'image/jpeg'
-    else:
-        media_type = f'image/{filetype[1:]}'
-    
-    with open('prompts/read_img.txt', 'r') as file:
-        prompt = file.read()
-    
-    try:
-        client = anthropic.Anthropic()
-        message = client.messages.create(
-            model="claude-3-7-sonnet-20250219",
-            max_tokens=1024,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "image",
-                            "source": {
-                                "type": "base64",
-                                "media_type": media_type,
-                                "data": image_data,
-                            },
-                        },
-                        {
-                            "type": "text",
-                            "text": prompt
-                        }
-                    ],
-                }
-            ],
-        )
-        output = message.content[0].text
-    except Exception as e:
-        print(f"Error: {e}")
-        sys.exit(1)
-    
-    return output
+import os
 
 def main(file):
-    output = str('')
+    output = ""
     filetype = pathlib.Path(file).suffix.lower()
     
     if filetype in ['.pdf', '.xps', '.epub']:
         doc = pymupdf.open(file)
         for page in doc:
-            output += page.get_text()  
-
+            output += page.get_text()
+        return {"type": "text", "text": output}
+        
     elif filetype in ['.jpg', '.jpeg', '.png']:
-        output += image(file, filetype)
+        with open(file, "rb") as image_file:
+            image_data = base64.b64encode(image_file.read()).decode('utf-8')
+        
+        if filetype == '.jpg' or filetype == '.jpeg':
+            media_type = 'image/jpeg'
+        else:
+            media_type = f'image/{filetype[1:]}'
+            
+        return {
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": media_type,
+                "data": image_data,
+            }
+        }
+        
+    elif filetype in ['.txt', '.tex']:
+        with open(file, "r") as file_obj:
+            output = file_obj.read()
+        return {"type": "text", "text": output}
+        
     else:
-        output = f"Unsupported file type: {filetype}"
-    
-    return output
+        return {"type": "text", "text": f"Unsupported file type: {filetype}"}
 
 if __name__ == "__main__":
     # Test case if run directly

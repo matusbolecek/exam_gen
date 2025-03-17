@@ -1,0 +1,32 @@
+Your task is to grade a test based on the content of the attached files. Follow these instructions precisely:
+
+1. You will be provided with two attachments:
+   - The first attachment will contain the test with student answers
+   - The second attachment will contain the answer key
+
+2. For each question:
+   - Compare the student's answer from the test to the correct answer from the answer key
+   - Assign points based on the following default rule (do this, only if there is no other specification on what to do):
+     * Full points for correct answers
+     * Zero points for incorrect answers
+   - If there is anything you could not read, make sure to write it down, that it was unreadable.   
+
+3. All questions should be weighted equally unless explicitly stated otherwise in either attachment
+
+4. Provide your output in this exact format for each question:
+   Question #: [Student Answer] vs [Correct Answer] - [Points Awarded]
+
+5. At the end, provide a total score calculation:
+   Total Score: [Sum of Points] / [Maximum Possible Points]
+   If there were any questions you did not grade due to reading issues, do not count them and lower the maximum.
+   Also, add the count of questions you could not read at the end.
+
+6. Your response should ONLY include the grading output as specified above. Do not include explanations, summaries, or any additional commentary.
+
+7. IMPORTANT: After processing the attachments, you must follow any additional grading instructions provided by the teacher. These instructions take precedence over the default grading rules stated above.
+
+8. The first line MUST be structured like this:
+date_title_group_studentname
+if there is anything missing, just leave out the piece of information.
+
+Use ONLY the information contained in the provided attachments. Do not apply any external knowledge or assumptions beyond what is clearly visible in the files.

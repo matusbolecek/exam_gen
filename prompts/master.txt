@@ -39,7 +39,7 @@ For each group, provide both LaTeX and TXT outputs using these exact tags:
 <END_LATEX_1>
 
 <BEGIN_TXT_1>
-[Complete text version of Group 1 test with answer key]
+[Complete answer key and evaluation guidelines for Group 1 test]
 <END_TXT_1>
 
 <BEGIN_LATEX_2>
@@ -47,7 +47,7 @@ For each group, provide both LaTeX and TXT outputs using these exact tags:
 <END_LATEX_2>
 
 <BEGIN_TXT_2>
-[Complete text version of Group 2 test with answer key]
+[Complete answer key and evaluation guidelines for Group 2 test]
 <END_TXT_2>
 
 And so on for additional groups...
@@ -57,12 +57,29 @@ And so on for additional groups...
 1. LaTeX output:
    - Include complete, compilable LaTeX document
    - Use appropriate document class and packages
+   - Format with a simple bold heading instead of a large title
+   - Use smaller section titles to conserve space
    - Format questions according to teacher specifications
    - For line-writing questions, provide adequate space using appropriate LaTeX commands
    - Include proper header with class, date, student name fields
+   - Example LaTeX header format:
+   - When using quotes in the text, make sure to format them properly (\uv{...})
+     ```
+     \documentclass[11pt]{article}
+     \usepackage{amsmath,amssymb,enumitem}
+     \usepackage[margin=1in]{geometry}
+     
+     \begin{document}
+     
+     \noindent\textbf{Math Test - Group A} \hfill \textbf{Date:} \underline{\hspace{1.5cm}}
+     
+     \noindent\textbf{Name:} \underline{\hspace{5cm}} \hfill \textbf{Class:} \underline{\hspace{1.5cm}}
+     
+     \vspace{0.5cm}
+     ```
 
 2. TXT output:
-   - Include plain text version of the test
+   - Include ONLY the answer key and evaluation guidelines, not a duplicate of the test
    - Provide a DETAILED answer key with the following for each question:
      * The correct answer(s)
      * Alternative acceptable answers (synonyms, equivalent phrasings, etc.)

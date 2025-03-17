@@ -1,0 +1,3 @@
+fix only one txt output being generated (in the case of 2 groups)
+evaluate and generate will be essentially merged together
+rework the big main block in the final program and split it into a more modular approach - with functions
